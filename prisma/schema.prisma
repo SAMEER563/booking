@@ -1,0 +1,39 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id             String    @id @default(cuid())
+  roomNumber     String    // business-readable id like "101"
+  name           String
+  baseHourlyRate Int       // integer INR per hour
+  capacity       Int
+
+  bookings       Booking[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Booking {
+  id         String   @id @default(cuid())
+  room       Room     @relation(fields: [roomId], references: [id])
+  roomId     String
+  userName   String
+  startTime  DateTime
+  endTime    DateTime
+  totalPrice Int
+  status     BookingStatus @default(CONFIRMED)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+}
