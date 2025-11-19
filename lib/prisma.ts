@@ -1,8 +1,6 @@
 // lib/prisma.ts
 import { PrismaClient } from "@prisma/client";
 
-let prisma: PrismaClient;
-
 declare global {
   var __prisma: PrismaClient | undefined;
 }
@@ -17,6 +15,6 @@ if (!global.__prisma) {
   });
 }
 
-prisma = global.__prisma;
+const prisma = global.__prisma;
 
 export default prisma;
