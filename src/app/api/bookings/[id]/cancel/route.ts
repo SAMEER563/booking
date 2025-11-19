@@ -1,22 +1,30 @@
+// app/api/bookings/[id]/cancel/route.ts
+
 import { NextResponse } from "next/server";
 import { cancelBooking, BookingError, BookingErrorCode } from "@/lib/bookingService";
 
-type Params = { params: { id: string } };
+// ✅ Next.js 15: params is now Promise<{ id: string }>
+export async function POST(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  // ✅ Await the params
+  const { id } = await context.params;
 
-export async function POST(req: Request, { params }: Params) {
   try {
-    const updated = await cancelBooking(params.id);
+    const updated = await cancelBooking(id);
 
     return NextResponse.json(
       {
         success: true,
         bookingId: updated.id,
-        status: updated.status
+        status: updated.status,
       },
       { status: 200 }
     );
   } catch (error) {
     const e = error as BookingError;
+
     return NextResponse.json(
       { error: e.message },
       { status: mapCancelError(e.code) }
