@@ -27,16 +27,7 @@ export default async function RoomsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-50 py-14 px-4">
       
-      {/* BACK BUTTON */}
-      <div className="max-w-6xl mx-auto mb-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-gray-700 hover:text-blue-600 font-medium transition"
-        >
-          <ArrowLeft size={20} />
-          Back
-        </Link>
-      </div>
+ 
 
       {/* HEADER */}
       <div className="max-w-4xl mx-auto mb-10 text-center">
