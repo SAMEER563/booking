@@ -1,12 +1,18 @@
+// app/layout.tsx
 import "./globals.css";
-import Navbar from "./components/Navbar";
+import ConditionalLayout from "./components/ConditionalLayout";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ 
+  children 
+}: { 
+  children: React.ReactNode 
+}) {
   return (
     <html lang="en">
       <body className="bg-gray-50">
-        <Navbar />
-        <main>{children}</main>
+        <ConditionalLayout>
+          {children}
+        </ConditionalLayout>
       </body>
     </html>
   );
